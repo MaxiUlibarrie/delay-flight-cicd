@@ -1,0 +1,9 @@
+exploration/
+
+*.csv
+
+*.pkl
+
+__pycache__/
+
+runs/

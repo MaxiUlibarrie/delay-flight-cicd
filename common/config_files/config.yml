@@ -1,0 +1,29 @@
+# base config data for prepare_data and train pipelines
+base:
+  features:
+    categoric: 
+      - OPERA
+      - MES
+      - TIPOVUELO
+    target: ATRASO_15
+  separator_feature_value: '___'
+
+# train config data for train pipeline
+train:
+  model_type: 'LOG_REG'
+  model_type_list: 
+    - LOG_REG
+    - XGBOOST
+  test_size_split: 0.33
+  parameters_GridSearch:
+    xgboost: 
+      learning_rate: [0.01, 0.05, 0.1]
+      n_estimators: [50, 100, 150]
+      subsample: [0.5, 0.9]
+
+# backend config data for backend pipeline
+backend:
+  request_features:
+    OPERA: 'str'
+    MES: "Literal['1','2','3','4','5','6','7','8','9','10','11','12']"
+    TIPOVUELO: "Literal['I','N']"
