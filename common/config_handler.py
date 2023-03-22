@@ -1,8 +1,9 @@
 import json
 from types import SimpleNamespace
 import yaml
+import os
 
-CONFIG_FILE = 'common/config_files/config.yml'
+CONFIG_FILE = './common/config_files/config.yml'
 
 class Config():
     """

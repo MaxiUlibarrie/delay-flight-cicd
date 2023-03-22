@@ -4,8 +4,6 @@ from pydantic import create_model, BaseModel
 import joblib
 import pandas as pd
 
-from common.data_transformer import normalize_str
-
 from common.config_handler import Config
 from common.log_handler import Logger
 
@@ -36,8 +34,7 @@ class DelayFlightModel():
         
     def __transform_input(self, df_request: DelayFlightRequest):
         req = df_request.dict()
-        req_norm = { k : normalize_str(v) for k,v in req.items() }
-        mask_features = [ PREFIX_FEATURE_VALUE.join([k,v]) for k,v in req_norm.items() ]
+        mask_features = [ PREFIX_FEATURE_VALUE.join([k,v]) for k,v in req.items() ]
         x = { k : ([1] if k in mask_features else [0]) for k in self.feature_names }
         x = pd.DataFrame.from_dict(x)
         

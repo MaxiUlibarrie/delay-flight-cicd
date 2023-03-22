@@ -1,0 +1,19 @@
+FROM bitnami/python:3.11.2-debian-11-r13
+
+WORKDIR /usr/src
+
+USER root
+
+COPY pipeline/backend/requirements.txt ./pipeline/backend/requirements.txt
+RUN pip install -r ./pipeline/backend/requirements.txt
+
+ENV PYTHONPATH=/usr/src
+
+COPY common/config_files/config.yml ./common/config_files/config.yml
+COPY common/config_handler.py ./common/config_handler.py
+COPY common/log_handler.py ./common/log_handler.py
+
+COPY pipeline/backend/main.py ./pipeline/backend/main.py
+COPY pipeline/backend/models.py ./pipeline/backend/models.py
+
+CMD ["uvicorn","pipeline.backend.main:app","--host","0.0.0.0","--port","8000"]

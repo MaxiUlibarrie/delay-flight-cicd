@@ -6,4 +6,6 @@ exploration/
 
 __pycache__/
 
-runs/
+__extra/
+
+docker-compose.yml
