@@ -4,6 +4,10 @@ WORKDIR /usr/src
 
 USER root
 
+RUN apt-get update
+RUN apt-get install -y git
+RUN git init
+
 COPY pipeline/train/requirements.txt pipeline/train/requirements.txt
 RUN pip install --upgrade pip && pip install -r pipeline/train/requirements.txt
 
@@ -19,7 +23,6 @@ COPY common/ common/
 ENV GOOGLE_APPLICATION_CREDENTIALS=gs_credentials.json
 ENV DATA_TRACK_NAME=data-track
 ENV MODEL_TRACK_NAME=model-track
-COPY .git/ .git/
 COPY .dvc/ .dvc/
 COPY data/dataset_SCL.csv.dvc data/dataset_SCL.csv.dvc
 COPY models/model_delay_flight.pkl.dvc models/model_delay_flight.pkl.dvc

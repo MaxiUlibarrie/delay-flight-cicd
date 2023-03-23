@@ -6,8 +6,8 @@ exploration/
 
 __pycache__/
 
-__extra/
+extra/
 
 docker-compose.yml
 
-__credentials/
+credentials/
