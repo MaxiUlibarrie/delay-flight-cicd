@@ -21,7 +21,7 @@ jobs:
         path: test-github-actions
     - 
       name: Build the Docker image
-      run: docker build . --file Dockerfile.train --tag train-image:test
+      run: docker build . --file ./Dockerfile.train --tag train-image:test
     -
       name: Run Docker image
       run: |
