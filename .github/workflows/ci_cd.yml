@@ -20,11 +20,23 @@ jobs:
       with:
         path: test-github-actions
     - 
-      name: Build the Docker image
-      run: docker build . --file ./Dockerfile.train --tag train-image:test
-    -
-      name: Run Docker image
-      run: |
-        docker run \
-          -v $(realpath models):/usr/src/models \
-          train-image:test
+      name: Set up QEMU
+      uses: docker/setup-qemu-action@v2.1.0
+    - 
+      name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2.2.1
+    - 
+      name: Build Docker Train
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        file: Dockerfile.train
+        load: true
+        push: false
+        tags: train-image:latest
+    - 
+      name: Run Docker Train
+      uses: tj-actions/docker-run@v2
+      with:
+        image: train-image:latest
+        name: train-image
