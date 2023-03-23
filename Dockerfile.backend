@@ -1,19 +1,25 @@
-FROM bitnami/python:3.11.2-debian-11-r13
+FROM python:3.11
 
 WORKDIR /usr/src
 
 USER root
 
 COPY pipeline/backend/requirements.txt ./pipeline/backend/requirements.txt
-RUN pip install -r ./pipeline/backend/requirements.txt
+RUN pip install --upgrade pip && pip install -r ./pipeline/backend/requirements.txt
 
 ENV PYTHONPATH=/usr/src
+ENV MODEL_PATH=/usr/src/models/model_delay_flight.pkl
 
-COPY common/config_files/config.yml ./common/config_files/config.yml
-COPY common/config_handler.py ./common/config_handler.py
-COPY common/log_handler.py ./common/log_handler.py
+# common
+COPY common/ common/
 
-COPY pipeline/backend/main.py ./pipeline/backend/main.py
-COPY pipeline/backend/models.py ./pipeline/backend/models.py
+# dvc 
+ENV GOOGLE_APPLICATION_CREDENTIALS=gs_credentials.json
+ENV MODEL_TRACK_NAME=model-track
+COPY .git/ .git/
+COPY .dvc/ .dvc/
+COPY models/model_delay_flight.pkl.dvc models/model_delay_flight.pkl.dvc
 
-CMD ["uvicorn","pipeline.backend.main:app","--host","0.0.0.0","--port","8000"]
+COPY pipeline/backend/ pipeline/backend/
+
+CMD ["bash", "pipeline/backend/start_service.sh"]

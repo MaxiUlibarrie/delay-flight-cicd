@@ -1,8 +1,8 @@
-from glob import glob
-from typing import Literal
 from pydantic import create_model, BaseModel
+from typing import Literal
 import joblib
 import pandas as pd
+import os
 
 from common.config_handler import Config
 from common.log_handler import Logger
@@ -24,7 +24,7 @@ class DelayFlightModel():
 
     def __init__(self):
         logger.log.info("Retrieving and unpackage model.")
-        self.model = joblib.load('models/model_delay_flight.pkl')
+        self.model = joblib.load(os.environ.get('MODEL_PATH'))
         self.feature_names = self.model.feature_names_final
 
     def predict(self, df_request: DelayFlightRequest):

@@ -5,6 +5,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GridSearchCV
 import xgboost as xgb
 import joblib
+import os
 
 from common.config_handler import Config
 from common.log_handler import Logger
@@ -28,7 +29,7 @@ def train():
         raise RuntimeError(msg)
     
     logger.log.info("Retrieving training data.")
-    data = pd.read_csv('./data/train.csv')
+    data = pd.read_csv(os.environ.get('TRAIN_DATA'))
 
     data = shuffle(data[FEATURE_CATEGORIC_BASIC + [TARGET_NAME]], random_state = 111)
 
@@ -70,4 +71,4 @@ def train():
     logger.log.info("\n" + str(clf_report))
 
     logger.log.info("Saving model.")
-    joblib.dump(model, './models/model_delay_flight.pkl')
+    joblib.dump(model, os.environ.get('MODEL_PATH'))

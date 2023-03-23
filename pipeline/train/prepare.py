@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime
+import os
 
 from pipeline.train.models import DataTransformer, DataPreparer
 
@@ -15,7 +16,7 @@ TARGET_NAME = config.get.base.features.target
 
 def prepare_train_data():
     logger.log.info("Retrieving data.")
-    data = pd.read_csv('./data/dataset_SCL.csv')
+    data = pd.read_csv('data/dataset_SCL.csv')
 
     data_preparer = DataPreparer([
         NormalizeColumns(),
@@ -26,7 +27,7 @@ def prepare_train_data():
     train_data = data_preparer.prepare_data(data)
 
     logger.log.info("Saving training data.")
-    train_data.to_csv("./data/train.csv", index=False)
+    train_data.to_csv(os.environ.get('TRAIN_DATA'), index=False)
 
 
 class NormalizeColumns(DataTransformer):
