@@ -1,0 +1,20 @@
+on: push
+name: train-deploy
+jobs:
+  train:
+    name: train new model
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        path: test-github-actions
+    - name: build and push to docker
+      uses: docker/build-push-action@v1
+      with:
+        file: Dockerfile.train
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        repository: ${{ github.repository }}
+        tag_with_ref: true
+        tag_with_sha: true
+        tags: ${{ github.sha }}

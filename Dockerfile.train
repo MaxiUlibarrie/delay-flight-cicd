@@ -10,6 +10,7 @@ RUN pip install --upgrade pip && pip install -r pipeline/train/requirements.txt
 ENV PYTHONPATH=/usr/src
 ENV TRAIN_DATA=data/train.csv
 ENV MODEL_PATH=/usr/src/models/model_delay_flight.pkl
+ENV UPDATE_MODEL_SH=/usr/src/pipeline/train/update_model.sh
 
 # common
 COPY common/ common/
