@@ -33,6 +33,8 @@ jobs:
         load: true
         push: false
         tags: train-image:latest
+        build-args: |
+          GOOGLE_SERVICE_KEY=${{ secrets.SERVICE_ACCOUNT_KEY }}
     - 
       name: Run Docker Train
       uses: tj-actions/docker-run@v2
