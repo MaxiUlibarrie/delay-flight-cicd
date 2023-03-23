@@ -21,10 +21,10 @@ jobs:
         path: test-github-actions
     - 
       name: Build the Docker image
-      run: docker build . --file Dockerfile.train --tag train-image:{{ github.sha }}
+      run: docker build . --file Dockerfile.train --tag train-image:test
     -
       name: Run Docker image
       run: |
         docker run \
           -v $(realpath models):/usr/src/models \
-          train-image:{{ github.sha }}
+          train-image:test
