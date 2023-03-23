@@ -1,4 +1,13 @@
-on: push
+on: 
+  push:
+    branches:
+      - test-github-actions
+    workflow_dispatch:
+    inputs:
+      run-manually:
+        description: 'RUN_WORKFLOW_MANUALLY'
+        required: true
+        type: boolean
 name: train-deploy
 jobs:
   train:
