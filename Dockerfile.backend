@@ -17,6 +17,9 @@ COPY pipeline/backend/requirements.txt ./pipeline/backend/requirements.txt
 RUN pip install --upgrade pip && pip install -r ./pipeline/backend/requirements.txt
 RUN pip install pyopenssl --upgrade
 
+ARG GOOGLE_SERVICE_KEY
+ENV SERVICE_ACCOUNT_KEY=$GOOGLE_SERVICE_KEY
+
 ENV PYTHONPATH=/usr/src
 ENV MODEL_PATH=/usr/src/models/model_delay_flight.pkl
 
