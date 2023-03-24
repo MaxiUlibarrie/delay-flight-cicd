@@ -4,10 +4,12 @@ WORKDIR /usr/src
 
 USER root
 
+# install git
 RUN apt-get update
 RUN apt-get install -y git
 RUN git init
 
+# install requirements
 COPY pipeline/train/requirements.txt pipeline/train/requirements.txt
 RUN pip install --upgrade pip && pip install -r pipeline/train/requirements.txt
 RUN pip install pyopenssl --upgrade
@@ -18,7 +20,6 @@ ENV SERVICE_ACCOUNT_KEY=$GOOGLE_SERVICE_KEY
 ENV PYTHONPATH=/usr/src
 ENV TRAIN_DATA=data/train.csv
 ENV MODEL_PATH=/usr/src/models/model_delay_flight.pkl
-ENV PULL_DATA_MODEL_SH=/usr/src/pipeline/train/pull_data_model.sh
 ENV UPDATE_MODEL_SH=/usr/src/pipeline/train/update_model.sh
 
 # common
