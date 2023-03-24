@@ -1,0 +1,36 @@
+FROM python:3.11
+
+WORKDIR /usr/src
+
+USER root
+
+# install git
+RUN apt-get update
+RUN apt-get install -y git
+RUN git init
+
+# install heroku
+RUN snap install --classic heroku
+
+# install requirements
+COPY pipeline/backend/requirements.txt ./pipeline/backend/requirements.txt
+RUN pip install --upgrade pip && pip install -r ./pipeline/backend/requirements.txt
+RUN pip install pyopenssl --upgrade
+
+ENV PYTHONPATH=/usr/src
+ENV MODEL_PATH=/usr/src/models/model_delay_flight.pkl
+
+# common
+COPY common/ common/
+
+# dvc 
+ENV GOOGLE_APPLICATION_CREDENTIALS=gs_credentials.json
+ENV MODEL_TRACK_NAME=model-track
+ENV MODEL_DVC=/usr/src/models/model_delay_flight.pkl.dvc
+
+COPY .dvc/ .dvc/
+COPY models/model_delay_flight.pkl.dvc models/model_delay_flight.pkl.dvc
+
+COPY pipeline/backend/ pipeline/backend/
+
+CMD ["bash", "pipeline/backend/start_service.sh"]
