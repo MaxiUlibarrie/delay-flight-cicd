@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 import os
+from dvc import api
 from io import StringIO
 
 from pipeline.train.models import DataTransformer, DataPreparer
@@ -17,7 +18,7 @@ TARGET_NAME = config.get.base.features.target
 
 def prepare_train_data():
     logger.log.info("Retrieving data.")
-    data = api.read('data/dataset_SCL.csv', remote=os.environ.get('DATA_TRACK_NAME'))
+    data = api.read('dataset_SCL.csv', remote=os.environ.get('DATA_TRACK_NAME'))
     data = pd.read_csv(StringIO(data))
 
     data_preparer = DataPreparer([
