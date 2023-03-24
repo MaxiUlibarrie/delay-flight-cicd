@@ -5,6 +5,7 @@ base:
       - OPERA
       - MES
       - TIPOVUELO
+    # here we can add numeric features if needed
     target: ATRASO_15
   separator_feature_value: '___'
 
