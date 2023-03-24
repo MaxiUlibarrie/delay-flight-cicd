@@ -3,7 +3,7 @@ This project is to create a CI/CD environment for a model to predict delay fligh
 
 This diagram shows the pipeline to update the new model adn deploy it into Heroku. 
 
-![Alt text](/assets/flow.jpg)
+![Alt text](/assets/pipeline.jpg)
 
 The pipeline is based on two principals processes: train and backend (both managed by Dockerfile.train and Dockerfile.backend respectively)
 
