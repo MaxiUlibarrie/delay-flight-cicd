@@ -2,5 +2,3 @@ outs:
 - md5: 73e6c521d818eae1c51c052872b9fe12
   size: 8658845
   path: dataset_SCL.csv
-  labels:
-  - V01

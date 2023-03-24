@@ -1,4 +1,4 @@
 ['remote "data-track"']
-    url = gs://delay-flight.appspot.com/data
+    url = gs://delay-flight.appspot.com/data-track
 ['remote "model-track"']
-    url = gs://delay-flight.appspot.com/model
+    url = gs://delay-flight.appspot.com/model-track

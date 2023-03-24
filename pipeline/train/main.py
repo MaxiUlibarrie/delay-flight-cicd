@@ -1,4 +1,5 @@
-import subprocess as sp
+import subprocess as sp 
+import os
 
 from pipeline.train.prepare import prepare_train_data
 from pipeline.train.train import train
@@ -12,13 +13,12 @@ if __name__ == '__main__':
     logger.log.info("Retrieving credentials.")
     decode_save_credentials()
 
-    logger.log.info("Pull data and current model.")
-    sp.run(['dvc','pull'])
-
     logger.log.info("Preparing Data.")
     prepare_train_data()
 
     logger.log.info("Starting Training Process.")
     train()
 
-    #TODO: upload model to gs
+    logger.log.info("Updating model.")
+    update_model_sh = os.environ.get('UPDATE_MODEL_SH')
+    sp.run(['bash', update_model_sh])

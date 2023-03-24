@@ -1,4 +1,4 @@
-exploration/
+__exploration/
 
 *.csv
 
@@ -6,7 +6,7 @@ exploration/
 
 __pycache__/
 
-__extra/
+extra/
 
 docker-compose.yml
 

@@ -3,6 +3,7 @@ from typing import Literal
 import joblib
 import pandas as pd
 import os
+from io import StringIO
 
 from common.config_handler import Config
 from common.log_handler import Logger
@@ -24,7 +25,8 @@ class DelayFlightModel():
 
     def __init__(self):
         logger.log.info("Retrieving and unpackage model.")
-        self.model = joblib.load(os.environ.get('MODEL_PATH'))
+        model = api.read('models/model_delay_flight.pkl', remote=os.environ.get('MODEL_TRACK_NAME'))
+        self.model = joblib.load(StringIO(model))
         self.feature_names = self.model.feature_names_final
 
     def predict(self, df_request: DelayFlightRequest):

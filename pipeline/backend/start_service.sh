@@ -1,7 +1,5 @@
 #!/bin/bash
 
-python common/credential_decode.py
+heroku login
 
-dvc pull --remote $MODEL_TRACK_NAME
-
-uvicorn pipeline.backend.main:app --host 0.0.0.0 --port 8000
+heroku create
