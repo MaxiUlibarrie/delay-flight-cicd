@@ -1,4 +1,4 @@
-import subprocess as sp
+import subprocess as sp 
 import os
 
 from pipeline.train.prepare import prepare_train_data
@@ -12,9 +12,6 @@ logger = Logger()
 if __name__ == '__main__':
     logger.log.info("Retrieving credentials.")
     decode_save_credentials()
-
-    logger.log.info("Pull data and current model.")
-    sp.run(['dvc','pull'])
 
     logger.log.info("Preparing Data.")
     prepare_train_data()

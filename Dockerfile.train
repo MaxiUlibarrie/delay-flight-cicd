@@ -10,6 +10,7 @@ RUN git init
 
 COPY pipeline/train/requirements.txt pipeline/train/requirements.txt
 RUN pip install --upgrade pip && pip install -r pipeline/train/requirements.txt
+RUN pip install pyopenssl --upgrade
 
 ARG GOOGLE_SERVICE_KEY
 ENV SERVICE_ACCOUNT_KEY=$GOOGLE_SERVICE_KEY
@@ -17,6 +18,7 @@ ENV SERVICE_ACCOUNT_KEY=$GOOGLE_SERVICE_KEY
 ENV PYTHONPATH=/usr/src
 ENV TRAIN_DATA=data/train.csv
 ENV MODEL_PATH=/usr/src/models/model_delay_flight.pkl
+ENV PULL_DATA_MODEL_SH=/usr/src/pipeline/train/pull_data_model.sh
 ENV UPDATE_MODEL_SH=/usr/src/pipeline/train/update_model.sh
 
 # common
@@ -26,6 +28,9 @@ COPY common/ common/
 ENV GOOGLE_APPLICATION_CREDENTIALS=gs_credentials.json
 ENV DATA_TRACK_NAME=data-track
 ENV MODEL_TRACK_NAME=model-track
+ENV DATA_DVC=/usr/src/data/dataset_SCL.csv.dvc
+ENV MODEL_DVC=/usr/src/models/model_delay_flight.pkl.dvc
+
 COPY .dvc/ .dvc/
 COPY data/dataset_SCL.csv.dvc data/dataset_SCL.csv.dvc
 COPY models/model_delay_flight.pkl.dvc models/model_delay_flight.pkl.dvc

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-dvc unprotect $MODEL_PATH
+dvc remove $MODEL_DVC
 
-dvc add $MODEL_PATH -r $MODEL_TRACK_NAME --to-remote
+dvc add $MODEL_PATH --to-remote -r $MODEL_TRACK_NAME
 
-dvc push $MODEL_PATH.dvc -r $MODEL_TRACK_NAME
+dvc push $MODEL_DVC -r $MODEL_TRACK_NAME

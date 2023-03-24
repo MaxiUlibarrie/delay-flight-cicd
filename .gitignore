@@ -1,4 +1,4 @@
-exploration/
+__exploration/
 
 *.csv
 
@@ -10,4 +10,4 @@ extra/
 
 docker-compose.yml
 
-credentials/
+__credentials/
